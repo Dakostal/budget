@@ -1,0 +1,24 @@
+
+.container {
+    display: flex;
+    align-items: center;
+
+    & .tableName {
+        border-collapse: collapse;
+        color: #000;
+        margin: 10px;
+        background-color: aliceblue;
+
+        & th, td {
+            border: 1px solid black; /* граница вокруг каждой ячейки */
+            padding: 8px;
+            text-align: left;
+        }
+    }
+
+    & .stateTable {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
