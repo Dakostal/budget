@@ -1,12 +1,15 @@
 import './App.css'
+import { BudgetProvider } from './components/BudgetProvider'
 import { Main } from './components/Main'
 
 function App() {
-  return (
-    <div>
-      <Main />
-    </div>
-  )
+    return (
+        <div>
+            <BudgetProvider>
+                <Main />
+            </BudgetProvider>
+        </div>
+    )
 }
 
 export default App

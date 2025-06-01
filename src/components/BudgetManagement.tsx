@@ -1,11 +1,10 @@
+import { BudgetSpender } from './BudgetSpender'
 
-
-
-export const BudgetManagement = () => {
-
-    return(
+export const BudgetManagement = ({ onBack }) => {
+    return (
         <div>
-            <button>Главная</button>
+            <BudgetSpender />
+            <button onClick={onBack}>Главная</button>
         </div>
     )
 }
