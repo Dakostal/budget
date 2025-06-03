@@ -5,6 +5,7 @@ import { BudgetContext } from './BudgetContext'
 
 export const Main = () => {
     const { result, error, inputId, chooses, back, budgetData, setInputId } = useContext(BudgetContext)
+    
     return (
         <div className={style.container}>
             <table className={style.tableName}>
@@ -13,7 +14,7 @@ export const Main = () => {
                     <th>Общий бюджет:</th>
                     <th>Потрачено:</th>
                 </tr>
-                {budgetData.map((obj) => (
+                {budgetData.map((obj) => ( 
                     <tr>
                         <td>{obj.departmentId}</td>
                         <td>{obj.totalBudget}</td>
@@ -23,7 +24,7 @@ export const Main = () => {
             </table>
             {!result && (
                 <div className={style.stateTable}>
-                    <input type="text" id={inputId} onChange={(e) => setInputId(e.target.value)} />
+                    <input type="text" value={inputId} onChange={(e) => setInputId(e.target.value)} />
                     <button onClick={chooses}>Выбрать</button>
                     <p>{error}</p>
                 </div>

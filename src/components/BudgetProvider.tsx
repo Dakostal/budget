@@ -2,22 +2,13 @@ import { useState } from 'react'
 import { BudgetContext } from './BudgetContext'
 import { budget } from './budget'
 
-interface IBudget {
-    inputId: string
-    error: string
-    result: any
-    departmentId: string
-    totalBudget: number
-}
-interface IBudgetItem {
-    departmentId: string
-    spent: number
-}
 export const BudgetProvider = ({ children }) => {
-    const [budgetData, setBudgetData] = useState<IBudgetItem[]>(budget)
+    const [budgetData, setBudgetData] = useState(budget)
     const [inputId, setInputId] = useState('')
-    const [result, setResult] = useState<IBudgetItem | null>(null)
+    const [result, setResult] = useState(null)
     const [error, setError] = useState('')
+    const [amount, setAmount] = useState(0)
+  
 
     const chooses = () => {
         const found = budgetData.find((budg) => budg.departmentId.toString() === inputId)
@@ -35,6 +26,23 @@ export const BudgetProvider = ({ children }) => {
         setInputId('')
         setError('')
     }
+
+    const addTransaction = (departmentId: string, amount: number) => {
+        setBudgetData((prevData)=> 
+            prevData.map((dept)=> {
+                if (dept.departmentId === departmentId) {
+                    return {
+                        ...dept,
+                        spent: dept.spent + amount,
+                        transactions: [
+                            ...dept.transactions,
+                        ]
+                    }
+                }
+                return dept
+            })
+    )
+    }
     return (
         <BudgetContext.Provider
             value={{
@@ -44,7 +52,10 @@ export const BudgetProvider = ({ children }) => {
                 result,
                 error,
                 inputId,
-                setInputId
+                setInputId,
+                setAmount,
+                addTransaction,
+                amount,
             }}
         >
             {children}
