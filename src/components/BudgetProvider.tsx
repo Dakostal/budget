@@ -1,14 +1,13 @@
 import { useState } from 'react'
-import { BudgetContext } from './BudgetContext'
+import { BudgetContext, type IBudgetItem } from './BudgetContext'
 import { budget } from './budget'
 
 export const BudgetProvider = ({ children }) => {
-    const [budgetData, setBudgetData] = useState(budget)
+    const [budgetData, setBudgetData] = useState<IBudgetItem[]>(budget)
     const [inputId, setInputId] = useState('')
-    const [result, setResult] = useState(null)
+    const [result, setResult] = useState<IBudgetItem | null>(null)
     const [error, setError] = useState('')
-    const [amount, setAmount] = useState(0)
-  
+    const [message, setMessage] = useState('')
 
     const chooses = () => {
         const found = budgetData.find((budg) => budg.departmentId.toString() === inputId)
@@ -43,6 +42,20 @@ export const BudgetProvider = ({ children }) => {
             })
     )
     }
+
+    const spent = (amount: number) => {
+        if(!result) return
+
+        const departmen = budgetData.find((item)=> item.departmentId === result.departmentId)
+        if(!departmen) return
+
+        const remainingBudget = departmen.totalBudget - departmen.spent
+        
+        if (amount > remainingBudget) return
+        addTransaction(result.departmentId, amount) 
+    }
+
+
     return (
         <BudgetContext.Provider
             value={{
@@ -53,9 +66,8 @@ export const BudgetProvider = ({ children }) => {
                 error,
                 inputId,
                 setInputId,
-                setAmount,
                 addTransaction,
-                amount,
+                spent,
             }}
         >
             {children}

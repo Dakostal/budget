@@ -2,34 +2,18 @@ import style from './styles.module.scss'
 import { BudgetManagement } from './BudgetManagement'
 import { useContext } from 'react'
 import { BudgetContext } from './BudgetContext'
+import { BudgetTable } from './BudgetTable'
+import { BudgetInput } from './BudgetInpit'
 
 export const Main = () => {
-    const { result, error, inputId, chooses, back, budgetData, setInputId } = useContext(BudgetContext)
+    const { result, back, } = useContext(BudgetContext)
     
     return (
         <div className={style.container}>
-            <table className={style.tableName}>
-                <tr>
-                    <th>ID:</th>
-                    <th>Общий бюджет:</th>
-                    <th>Потрачено:</th>
-                </tr>
-                {budgetData.map((obj) => ( 
-                    <tr>
-                        <td>{obj.departmentId}</td>
-                        <td>{obj.totalBudget}</td>
-                        <td>{obj.spent}</td>
-                    </tr>
-                ))}
-            </table>
+            <BudgetTable />
             {!result && (
-                <div className={style.stateTable}>
-                    <input type="text" value={inputId} onChange={(e) => setInputId(e.target.value)} />
-                    <button onClick={chooses}>Выбрать</button>
-                    <p>{error}</p>
-                </div>
+                <BudgetInput />
             )}
-
             {result && (
                 <div>
                     <BudgetManagement onBack={back} />
