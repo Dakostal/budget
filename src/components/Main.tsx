@@ -6,14 +6,12 @@ import { BudgetTable } from './BudgetTable'
 import { BudgetInput } from './BudgetInpit'
 
 export const Main = () => {
-    const { result, back, } = useContext(BudgetContext)
-    
+    const { result, back } = useContext(BudgetContext)
+
     return (
         <div className={style.container}>
             <BudgetTable />
-            {!result && (
-                <BudgetInput />
-            )}
+            {!result && <BudgetInput />}
             {result && (
                 <div>
                     <BudgetManagement onBack={back} />

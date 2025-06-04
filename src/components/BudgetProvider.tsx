@@ -27,34 +27,34 @@ export const BudgetProvider = ({ children }) => {
     }
 
     const addTransaction = (departmentId: string, amount: number) => {
-        setBudgetData((prevData)=> 
-            prevData.map((dept)=> {
+        setBudgetData((prevData) =>
+            prevData.map((dept) => {
                 if (dept.departmentId === departmentId) {
                     return {
                         ...dept,
                         spent: dept.spent + amount,
-                        transactions: [
-                            ...dept.transactions,
-                        ]
+                        transactions: [...dept.transactions]
                     }
                 }
                 return dept
             })
-    )
+        )
     }
 
     const spent = (amount: number) => {
-        if(!result) return
+        if (!result) return
 
-        const departmen = budgetData.find((item)=> item.departmentId === result.departmentId)
-        if(!departmen) return
+        const departmen = budgetData.find((item) => item.departmentId === result.departmentId)
+        if (!departmen) return
 
         const remainingBudget = departmen.totalBudget - departmen.spent
-        
-        if (amount > remainingBudget) return
-        addTransaction(result.departmentId, amount) 
+
+        if (amount > remainingBudget) return setMessage('Транзакция не прошла')
+        addTransaction(result.departmentId, amount)
+        setMessage('Транзакция прошла успешно')
     }
 
+    const cancelTrans = () => {}
 
     return (
         <BudgetContext.Provider
@@ -66,8 +66,9 @@ export const BudgetProvider = ({ children }) => {
                 error,
                 inputId,
                 setInputId,
-                addTransaction,
                 spent,
+                cancelTrans,
+                message
             }}
         >
             {children}

@@ -16,11 +16,12 @@ interface IBudgetContext {
     error: string
     result: IBudgetItem | null
     budgetData: IBudgetItem[]
+    message: string
     back: () => void
     chooses: () => void
     spent: (amount: number) => void
     setInputId: (id: string) => void
-    addTransaction: (departmentId: string, amount: number) => void
+    cancelTrans: (id: string) => void
 }
 
 export const BudgetContext = createContext<IBudgetContext>({
@@ -28,11 +29,10 @@ export const BudgetContext = createContext<IBudgetContext>({
     inputId: '',
     error: '',
     result: null,
+    message: '',
     back: () => {},
     chooses: () => {},
     setInputId: () => {},
-    addTransaction: () => {},
-    spent: () => {}
+    spent: () => {},
+    cancelTrans: () => {}
 })
-
-
