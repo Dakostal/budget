@@ -1,11 +1,11 @@
-import { BudgetRefunder } from './BudgetRefunder'
+// import { BudgetRefunder } from './BudgetRefunder'
 import { BudgetSpender } from './BudgetSpender'
 
 export const BudgetManagement = ({ onBack }) => {
     return (
         <div>
             <BudgetSpender />
-            <BudgetRefunder />
+            {/* <BudgetRefunder /> */}
             <button onClick={onBack}>Главная</button>
         </div>
     )

@@ -21,7 +21,7 @@ interface IBudgetContext {
     chooses: () => void
     spent: (amount: number) => void
     setInputId: (id: string) => void
-    cancelTrans: (id: string) => void
+    refund: (transactionId: string) => void
 }
 
 export const BudgetContext = createContext<IBudgetContext>({
@@ -34,5 +34,5 @@ export const BudgetContext = createContext<IBudgetContext>({
     chooses: () => {},
     setInputId: () => {},
     spent: () => {},
-    cancelTrans: () => {}
+    refund: () => {}
 })
